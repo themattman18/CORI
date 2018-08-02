@@ -1,0 +1,53 @@
+﻿@model ExternalLoginViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>Associate your @ViewData["LoginProvider"] account.</h4>
+<hr />
+
+<style type="text/css">
+    .cori-quote {
+        position: relative;
+        padding: 15px;
+        margin: 100px 0 0.5em;
+        color: #333;
+        background: #eee;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+</style>
+<blockquote class="cori-quote">
+    <p class="text-info">
+        Hi there, I'm CORI!  You've successfully authenticated with @ViewData["LoginProvider"].
+        To finish, just confirm your email and enter a phone number!
+    </p>
+</blockquote>
+
+<div class="row">
+    <div class="col-md-4">
+        <img src="~/images/cori-3.jpg" alt="cori" />
+    </div>
+    <div class="col-md-4">
+        
+        <form asp-action="ExternalLoginConfirmation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <label asp-for="Phone"></label>
+                <input asp-for="Phone" class="form-control" placeholder="(123)456-7890" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
