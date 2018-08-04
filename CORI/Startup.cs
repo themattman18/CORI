@@ -40,13 +40,15 @@ namespace CORI
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>()
-                    .AddEntityFrameworkStores<ApplicationDbContext>()
-                    .AddDefaultTokenProviders();
-
-            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //services.AddDefaultIdentity<ApplicationUser>()
             //        .AddEntityFrameworkStores<ApplicationDbContext>()
             //        .AddDefaultTokenProviders();
+
+
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                    .AddEntityFrameworkStores<ApplicationDbContext>()
+                    .AddDefaultTokenProviders();
 
             //services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
 
