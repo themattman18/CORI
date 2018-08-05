@@ -1,7 +1,99 @@
 ﻿@{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = "About CORI";
 }
 <h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
-<p>Use this area to provide additional information.</p>
+<style>
+    .about p{
+        font-size:large;
+    }
+
+    .cori {
+        -webkit-animation: jump 1.5s ease 0s 1 normal ;
+        animation: jump 1.5s ease 0s 1 normal ;
+    }
+
+@@-webkit-keyframes jump {
+  0%{
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+  }
+  20%{
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+  }
+  40%{
+	-webkit-transform: translateY(-30px);
+	transform: translateY(-30px);
+  }
+  50%{
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+  }
+  60%{
+	-webkit-transform: translateY(-15px);
+	transform: translateY(-15px);
+  }
+  80%{
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+  }
+  100%{
+	-webkit-transform: translateY(0);
+	transform: translateY(0);
+  }
+}
+
+@@keyframes jump {
+  0%{
+	transform: translateY(0);
+  }
+  20%{
+	transform: translateY(0);
+  }
+  40%{
+	transform: translateY(-30px);
+  }
+  50%{
+	transform: translateY(0);
+  }
+  60%{
+	transform: translateY(-15px);
+  }
+  80%{
+	transform: translateY(0);
+  }
+  100%{
+	transform: translateY(0);
+  }
+}
+</style>
+
+<script type="text/javascript">
+
+    
+    function AnimateCori(animate) {
+        if (animate) {
+            $("#cori").addClass("cori");
+        }
+        else {
+            $("#cori").removeClass("cori");
+        }
+    }
+
+</script>
+
+
+<div class="row about" style="margin-top:10px;">
+
+
+    <img id="cori" class="col-md-2 col-sm-4" onmouseover="AnimateCori(true)" onmouseout="AnimateCori(false)" src="~/images/cori-3.png" />
+    <div class="col-md-8 col-sm-8">
+        <p>Hi There!  I'm Driven's Campus Outreach Intelligence or CORI for short.</p>
+        <p>I'll help you gather contacts at USA and then I'll remeber which ones you spoke to so you can contact them again later on (but don't be creepy about it).</p>
+    </div>
+
+
+</div>
+
+

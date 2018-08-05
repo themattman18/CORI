@@ -50,7 +50,7 @@ namespace CORI
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
 
-            //services.AddScoped<SignInManager<ApplicationUser>, SignInManager<ApplicationUser>>();
+            services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
