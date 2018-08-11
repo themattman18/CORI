@@ -1,5 +1,5 @@
 ﻿@using CORI.Views.Manage
-@inject SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<CORI.IO.Models.ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }
