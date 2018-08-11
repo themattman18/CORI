@@ -54,6 +54,8 @@ namespace CORI
 
             services.AddAuthentication().AddFacebook(facebookOptions =>
             {
+                facebookOptions.Scope.Add("public_profile");
+                facebookOptions.Scope.Add("email");
                 facebookOptions.AppId = Configuration["Authentication-Facebook-AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication-Facebook-AppSecret"];
             });

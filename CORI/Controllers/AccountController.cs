@@ -293,7 +293,11 @@ namespace CORI.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName) ??
+                                info.Principal.FindFirstValue(ClaimTypes.Name);
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+                var phone = info.Principal.FindFirstValue(ClaimTypes.MobilePhone);
+                return View("ExternalLogin", new ExternalLoginViewModel { Email = email, FirstName = firstName, LastName = lastName, Phone = phone });
             }
         }
 
@@ -310,7 +314,7 @@ namespace CORI.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Phone, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
