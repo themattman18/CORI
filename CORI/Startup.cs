@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CORI.Models;
 using CORI.Services;
+using CORI.IO.Model;
 
 namespace CORI
 {
@@ -44,7 +45,7 @@ namespace CORI
             //        .AddEntityFrameworkStores<ApplicationDbContext>()
             //        .AddDefaultTokenProviders();
 
-
+            services.AddDbContext<CORIContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
