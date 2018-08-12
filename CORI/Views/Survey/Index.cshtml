@@ -5,23 +5,23 @@
 
 <style type="text/css">
 
-    .survey .question2 * {
+    .survey .question1 *,
+    .survey .question2 *,
+    .survey .question3 * {
         font-size: large;
     }
 
-    .survey .question1 * {
-        font-size: large;
-    }
-
+    .survey .question1 input,
     .survey .question2 input {
         margin-right: 5px;
         vertical-align: top;
     }
 
-    .survey .question1 input {
-        margin-right: 5px;
-        vertical-align: top;
+    .survey .question1 span,
+    .survey .question2 span {
+        margin-right: 15px;
     }
+
 </style>
 <br />
 <div class="survey">
@@ -31,11 +31,11 @@
         <div class="col-md-12 col-sm-12">Which of these is the most important for you to experience during college?</div>
 
         <div class="col-md-12 col-sm-12 col-xs-12">
-            <span class="col-md-2 col-sm-2 col-xs-2"><label><input id="1" type="radio" name="find" value="1" />Success</label></span>
-            <span class="col-md-2 col-sm-2 col-xs-2"><label><input id="2" type="radio" name="find" value="2" />Friendships</label></span>
-            <span class="col-md-2 col-sm-2 col-xs-2"><label><input id="3" type="radio" name="find" value="3" />Fun</label></span>
-            <span class="col-md-2 col-sm-2 col-xs-2"><label><input id="4" type="radio" name="find" value="4" />Fulfillment</label></span>
-            <span class="col-md-2 col-sm-2 col-xs-2"><label><input id="5" type="radio" name="find" value="5" />Love</label></span>
+            <span><label><input id="1" type="radio" name="find" value="1" />Success</label></span>
+            <span><label><input id="2" type="radio" name="find" value="2" />Friendships</label></span>
+            <span><label><input id="3" type="radio" name="find" value="3" />Fun</label></span>
+            <span><label><input id="4" type="radio" name="find" value="4" />Fulfillment</label></span>
+            <span><label><input id="5" type="radio" name="find" value="5" />Love</label></span>
         </div>
 
     </div>
@@ -43,19 +43,51 @@
 
     <div class="row question2">
         <div class="col-md-12 col-sm-12" style="margin-bottom:10px;">On a scale from 1-10 how important is the spiritual area of your life?</div>
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="1" type="radio" name="spiritualArea" value="1" />1</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="2" type="radio" name="spiritualArea" value="2" />2</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="3" type="radio" name="spiritualArea" value="3" />3</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="4" type="radio" name="spiritualArea" value="4" />4</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="5" type="radio" name="spiritualArea" value="5" />5</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="6" type="radio" name="spiritualArea" value="6" />6</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="7" type="radio" name="spiritualArea" value="7" />7</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="8" type="radio" name="spiritualArea" value="8" />8</label></span>
-            <span class="col-md-1 col-sm-1 col-xs-1"><label><input id="9" type="radio" name="spiritualArea" value="9" />9</label></span>
-            <span class="col-md-2 col-sm-2 col-xs-2"><label><input id="10" type="radio" name="spiritualArea" value="10" />10</label></span>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-bottom:10px;">
+            <span><label><input id="1" type="radio" name="spiritualArea" value="1" />1</label></span>
+            <span><label><input id="2" type="radio" name="spiritualArea" value="2" />2</label></span>
+            <span><label><input id="3" type="radio" name="spiritualArea" value="3" />3</label></span>
+            <span><label><input id="4" type="radio" name="spiritualArea" value="4" />4</label></span>
+            <span><label><input id="5" type="radio" name="spiritualArea" value="5" />5</label></span>
+            <span><label><input id="6" type="radio" name="spiritualArea" value="6" />6</label></span>
+            <span><label><input id="7" type="radio" name="spiritualArea" value="7" />7</label></span>
+            <span><label><input id="8" type="radio" name="spiritualArea" value="8" />8</label></span>
+            <span><label><input id="9" type="radio" name="spiritualArea" value="9" />9</label></span>
+            <span><label><input id="10" type="radio" name="spiritualArea" value="10" />10</label></span>
         </div>
     </div>
 
-</div>
+    <div class="row question3">
+        <div class="col-md-12 col-sm-12" style="margin-bottom:10px;"><label><input type="checkbox" /> I am interested in hearing more about Driven Student Ministry</label></div>
+        @*<div class="col-md-12 col-sm-12 col-xs-12"></div>*@
 
+    </div>
+
+    <div class="row firstName">
+        <div class="col-md-12 col-sm-12" style="margin-bottom:10px;"><label>First Name</label></div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12"><input type="text" /></div>
+
+    </div>
+
+    <div class="row lastName">
+        <div class="col-md-12 col-sm-12" style="margin-bottom:10px;"><label>Last Name</label></div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12"><input type="text" /></div>
+
+    </div>
+    <div class="row email">
+        <div class="col-md-12 col-sm-12" style="margin-bottom:10px;"><label>Email</label></div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12"><input type="text" /></div>
+
+    </div>
+
+    <div class="row phone">
+        <div class="col-md-12 col-sm-12" style="margin-bottom:10px;"><label>Phone</label></div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12"><input type="text" /></div>
+
+    </div>
+
+</div>
