@@ -12,8 +12,7 @@ namespace CORI.Data.Migrations
                 name: "ContactMethods",
                 columns: table => new
                 {
-                    ContactMethodId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ContactMethodId = table.Column<int>(nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
