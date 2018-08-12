@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20180811124244_UserNames.cs" />
+    <Compile Remove="Data\Migrations\20180811124244_UserNames.Designer.cs" />
     <Compile Remove="Models\ErrorViewModel.cs" />
   </ItemGroup>
 
