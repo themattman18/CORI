@@ -12,5 +12,12 @@ namespace CORI.Controllers
         {
             return View();
         }
+
+        public IActionResult SubmitForm(CORI.Models.SurveyViewModels.SurveyResult survey)
+        {
+            
+
+            return null;
+        }
     }
 }

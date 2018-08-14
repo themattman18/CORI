@@ -1,4 +1,4 @@
-﻿
+﻿@model CORI.Models.SurveyViewModels.SurveyResult
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Survey-Layout.cshtml";
@@ -7,16 +7,15 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/css/bootstrap-slider.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.0/bootstrap-slider.min.js" type="text/javascript"></script>
 
-@*<style type="text/css">
+<style type="text/css">
 
     /* Customize the label (the container) */
-    .container {
+    .subscribe {
         display: block;
         position: relative;
         padding-left: 35px;
         margin-bottom: 12px;
         cursor: pointer;
-        font-size: 22px;
         -webkit-user-select: none;
         -moz-user-select: none;
         -ms-user-select: none;
@@ -24,46 +23,46 @@
     }
 
         /* Hide the browser's default checkbox */
-        .container input {
+        .subscribe input {
             position: absolute;
             opacity: 0;
             cursor: pointer;
         }
 
     /* Create a custom checkbox */
-    .checkmark {
+    .custom-checkmark {
         position: absolute;
         top: 0;
         left: 0;
         height: 25px;
         width: 25px;
-        background-color: #eee;
+        background-color: #ccc;
     }
 
     /* On mouse-over, add a grey background color */
-    .container:hover input ~ .checkmark {
+    .subscribe:hover input ~ .custom-checkmark {
         background-color: #ccc;
     }
 
     /* When the checkbox is checked, add a blue background */
-    .container input:checked ~ .checkmark {
+    .subscribe input:checked ~ .custom-checkmark {
         background-color: #2196F3;
     }
 
     /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
+    .custom-checkmark:after {
         content: "";
         position: absolute;
         display: none;
     }
 
     /* Show the checkmark when checked */
-    .container input:checked ~ .checkmark:after {
+    .subscribe input:checked ~ .custom-checkmark:after {
         display: block;
     }
 
     /* Style the checkmark/indicator */
-    .container .checkmark:after {
+    .subscribe .custom-checkmark:after {
         left: 9px;
         top: 5px;
         width: 5px;
@@ -73,60 +72,60 @@
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
-    } 
-
-</style>*@
+    }
+</style>
 
 <script type="text/javascript">
 
     $(document).ready(function () {
-        var mySlider = $("ex19").slider();
+        var mySlider = $("spiritualArea").slider();
     });
 
 </script>
 
 <div style="display:flex; flex-direction:row; align-items:center; justify-content:space-around;">
     <img src="~/images/driven-gray.png" height="75" />
-    
+
     <h1 style="display:inline-block;">30 Second Survey</h1>
 </div>
 
-<hr/>
+<hr />
 
 <div class="survey">
 
     <div class="form-group">
-        <label>1) Which of these is the most important for you to experience during college?</label>
-
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1-success" value="option1" checked>
-            <label class="form-check-label" for="q1-success">
-                Success
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1-friendships" value="option2">
-            <label class="form-check-label" for="q1-friendships">
-                Friendships
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1-fun" value="option2">
-            <label class="form-check-label" for="q1-fun">
-                Fun
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1-fulfillment" value="option2">
-            <label class="form-check-label" for="q1-fulfillment">
-                Fulfillment
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1-love" value="option2">
-            <label class="form-check-label" for="q1-love">
-                Love
-            </label>
+        <label class="h3">1) Which of these is the most important for you to experience during college?</label>
+        <div style="margin-left:2em;">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" id="q1-success" value="option1" checked>
+                <label class="form-check-label h4" for="q1-success">
+                    Success
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" id="q1-friendships" value="option2">
+                <label class="form-check-label h4" for="q1-friendships">
+                    Friendships
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" id="q1-fun" value="option2">
+                <label class="form-check-label h4" for="q1-fun">
+                    Fun
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" id="q1-fulfillment" value="option2">
+                <label class="form-check-label h4" for="q1-fulfillment">
+                    Fulfillment
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="question1" id="q1-love" value="option2">
+                <label class="form-check-label h4" for="q1-love">
+                    Love
+                </label>
+            </div>
         </div>
     </div>
 
@@ -134,9 +133,9 @@
 
 
     <div class="form-group">
-        <div><label for="ex19">2) On a scale from 1-10 how important is the spiritual area of your life?</label></div>
+        <div><label for="spiritualArea" class="h3">2) On a scale from 1-10 how important is the spiritual area of your life?</label></div>
 
-        <input id="ex19" type="text" class="form-control" style="width:100%;"
+        <input id="spiritualArea" type="text" class="form-control" style="width:80%;"
                data-provide="slider"
                data-slider-ticks="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
                data-slider-ticks-labels='["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]'
@@ -148,35 +147,41 @@
 
     </div>
 
-    <label class="container">
-        <input type="checkbox" checked="checked">
-        <span class="checkmark"></span>
-        I am interested in hearing more about Driven Student Ministry:
-    </label>
+    <div class="form-group">
+        <label class="subscribe h3">
+            <input type="checkbox" checked="checked">
+            <span class="custom-checkmark"></span>
+            <span>I am interested in hearing more about Driven Student Ministry</span>
+        </label>
+    </div>
 
-    <div class="checkbox form-group">
-        <label for="subscribe"><input type="checkbox" id="subscribe">I am interested in hearing more about Driven Student Ministry:</label>
+    @*<div class="checkbox form-group">
+            <label for="subscribe"><input type="checkbox" id="subscribe">I am interested in hearing more about Driven Student Ministry:</label>
+        </div>*@
+
+    <input asp-for="IsSubscribed" hidden />
+    <input asp-for="MostImportantExperience" hidden />
+    <input asp-for="SpiritualArea" hidden />
+
+    <div class="form-group">
+        <label for="fName" class="h4">First Name:</label>
+        <input asp-for="FirstName" type="text" class="form-control" id="fName">
     </div>
 
     <div class="form-group">
-        <label for="fName">First Name:</label>
-        <input type="text" class="form-control" id="fName">
+        <label for="LName" class="h4">Last Name:</label>
+        <input asp-for="LastName" type="text" class="form-control" id="LName">
     </div>
 
     <div class="form-group">
-        <label for="LName">Last Name:</label>
-        <input type="text" class="form-control" id="LName">
+        <label for="email" class="h4">Email:</label>
+        <input asp-for="Email" type="text" class="form-control" id="email">
     </div>
 
     <div class="form-group">
-        <label for="email">Email:</label>
-        <input type="text" class="form-control" id="email">
+        <label for="phone" class="h4">Phone:</label>
+        <input asp-for="Phone" type="text" class="form-control" id="phone">
     </div>
 
-    <div class="form-group">
-        <label for="phone">Phone:</label>
-        <input type="text" class="form-control" id="phone">
-    </div>
-
-    <button class="btn">Submit</button>
+    <button class="btn btn-lg btn-primary" style="width:100%;">Submit</button>
 </div>
