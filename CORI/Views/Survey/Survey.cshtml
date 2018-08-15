@@ -79,15 +79,25 @@
 
     $(document).ready(function () {
 
-        var mySlider = $("spiritualArea").slider();
-        ('#spiritualArea').slider().on('change', function (ev) {
-            alert($('#spiritualArea').data('slider').getValue());
-        });
-
+        // Initialize the slider
+        var mySlider = $("#spiritualArea").slider();
+        
+        // Update the view model when the radio button value changes
         $('input[type=radio][name=question1]').change(function () {
             $("#MostImportantExperience").val(this.value);
         });
 
+        // Update the view model value when the slider value changes
+        $('#spiritualArea').slider().on('slideStop', function (ev) {
+
+            try {
+                var newVal = parseInt($('#spiritualArea').data('slider').getValue());
+                $("#SpiritualArea").val(newVal)
+            } catch (e) {
+                $("#SpiritualArea").val(-1); // An error happened
+            }
+            
+        });
 
 
     });
@@ -102,7 +112,7 @@
 
 <hr />
 
-<form asp-controller="survey" asp-action="SubmitForm" method="post">
+<form asp-controller="Survey" asp-action="SubmitSurvey" method="post">
 
     <div class="survey">
 
