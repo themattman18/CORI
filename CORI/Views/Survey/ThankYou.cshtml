@@ -4,5 +4,21 @@
     Layout = "~/Views/Shared/_Survey-Layout.cshtml";
 }
 
-<h2>Thank You</h2>
+<div class="row">
 
+    <div style="max-width:960px;">
+
+        <div style="background-image:url(/images/SurveyBackground.jpg); text-align:center;">
+            <img src="~/images/drivenlogo.png" />
+        </div>
+
+        <div style="padding-right:10px; padding-left:10px;">
+            <h1>Thank you for your feedback!</h1>
+            <p>
+                You've been entered for our giveaway so be on the lookout for an email to see if you've won!
+            </p>
+            <br />
+            <a asp-action="Survey" asp-controller="Survey" class="btn btn-lg btn-primary " style="width:100%;">Take another survey</a>
+        </div>
+    </div>
+</div>

@@ -2,15 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CORI.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace CORI.Controllers
 {
     [Authorize]
     public class SurveyController : Controller
     {
+        public IConfiguration Configuration { get; }
+
+        public SurveyController(IConfiguration config)
+        {
+            Configuration = config;
+        }
+
         public IActionResult Survey()
+        {
+            return View();
+        }
+
+        public IActionResult ThankYou()
         {
             return View();
         }
@@ -18,27 +33,42 @@ namespace CORI.Controllers
         [HttpPost]
         public IActionResult SubmitSurvey(CORI.Models.SurveyViewModels.SurveyResult survey)
         {
-
-            if (ModelState.IsValid)
+            try
             {
-                CORI.IO.Survey.Models.SurveyResult result = new IO.Survey.Models.SurveyResult()
+                if (ModelState.IsValid)
                 {
-                    ContactedBy = HttpContext.User.Identity.Name,
-                    Email = survey.Email,
-                    FirstName = survey.FirstName,
-                    IsSubscribed = survey.IsSubscribed,
-                    LastName = survey.LastName,
-                    MostImportantExperience = survey.MostImportantExperience,
-                    Phone = survey.Phone,
-                    SpiritualArea = survey.SpiritualArea
-                };
+                    CORI.IO.Survey.Models.SurveyResult result = new IO.Survey.Models.SurveyResult()
+                    {
+                        ContactedBy = HttpContext.User.Identity.Name,
+                        Email = survey.Email,
+                        FirstName = survey.FirstName,
+                        IsSubscribed = survey.IsSubscribed,
+                        LastName = survey.LastName,
+                        MostImportantExperience = survey.MostImportantExperience,
+                        Phone = survey.Phone,
+                        SpiritualArea = survey.SpiritualArea
+                    };
 
-                //IO.Survey.Survey surveyIO = new IO.Survey.Survey(new Data.ApplicationDbContext());
-                //surveyIO.SubmitSurvey(result);
+                    var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+                    optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+
+                    using (var context = new ApplicationDbContext(optionsBuilder.Options))
+                    {
+                        IO.Survey.Survey surveyIO = new IO.Survey.Survey(context);
+                        surveyIO.SubmitSurvey(result);
+                    }
+
+                    return View("~/Views/Survey/ThankYou.cshtml");
+                }
+
+                return View("~/Views/Survey/Survey.cshtml", survey);
             }
-                        
+            catch (Exception)
+            {
 
-            return View("~/Views/Survey/ThankYou.cshtml");
+                throw;
+            }
+            
         }
     }
 }

@@ -20,15 +20,16 @@ namespace CORI.Models.SurveyViewModels
 
         [Required]
         [Phone]
+        [MinLength(9, ErrorMessage = "Make sure you include the area code")]
         public string Phone { get; set; }
 
         [Required]
         public bool IsSubscribed { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must select the most import experience")]
         public string MostImportantExperience { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must select how important the spiritual area is")]
         public string SpiritualArea { get; set; }
     }
 }
