@@ -70,5 +70,25 @@ namespace CORI.Controllers
             }
             
         }
+
+        /// <summary>
+        /// Show a list of my contacts
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult MyContacts()
+        {
+            List<CORI.IO.Models.Contact> contacts;
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+
+            using (var context = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                IO.Survey.Survey surveyIO = new IO.Survey.Survey(context);
+                contacts = surveyIO.GetMyContacts(HttpContext.User.Identity.Name);
+            }
+
+            return View(contacts);
+        }
     }
 }

@@ -53,8 +53,17 @@ namespace CORI.IO.Survey
                 contact = (from x in appCxt.Contacts
                            where x.Email == survey.Email
                            select x).First();
-            }
+                var appUser = (from x in appCxt.Users
+                               where x.Email == survey.ContactedBy
+                               select x).FirstOrDefault();
 
+                // Tie this contact to the person who contacted them
+                appCxt.UserContacts.Add(new IO.Models.UserContact()
+                {
+                    ApplicationUserId = appUser,
+                    ContactId = contact
+                });
+            }
 
             var questions = (from x in appCxt.Questions
                              select x).ToList();
@@ -84,6 +93,27 @@ namespace CORI.IO.Survey
 
             // Insert the survey
             appCxt.SaveChanges();
+        }
+
+        /// <summary>
+        /// Get a list of people the user has contacted
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public List<IO.Models.Contact> GetMyContacts(string userName)
+        {
+            List<IO.Models.Contact> myContacts = null;
+
+            if (!string.IsNullOrEmpty(userName))
+            {
+                myContacts = (from x in appCxt.Contacts
+                              join y in appCxt.UserContacts on x equals y.ContactId
+                              join z in appCxt.Users on y.ApplicationUserId equals z
+                              where z.Email == userName
+                              select x).ToList();
+            }
+
+            return myContacts;
         }
     }
 }
