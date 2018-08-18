@@ -186,11 +186,7 @@
             </label>
         </div>
 
-        @*<div class="checkbox form-group">
-            <label for="subscribe"><input type="checkbox" id="subscribe">I am interested in hearing more about Driven Student Ministry:</label>
-        </div>*@
 
-        @*<input asp-for="IsSubscribed" hidden />*@
         <input asp-for="MostImportantExperience" hidden />
         <input asp-for="SpiritualArea" hidden />
 
@@ -198,27 +194,26 @@
 
         <div class="form-group">
             <label for="fName" class="h4">First Name:</label>
-            <input asp-for="FirstName" type="text" class="form-control" id="fName">
+            <input asp-for="FirstName" type="text" class="form-control" id="fName" autocomplete="off">
             <span asp-validation-for="FirstName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="LName" class="h4">Last Name:</label>
-            <input asp-for="LastName" type="text" class="form-control" id="LName">
+            <input asp-for="LastName" type="text" class="form-control" id="LName" autocomplete="off">
             <span asp-validation-for="LastName" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label for="email" class="h4">Email:</label>
-            <input asp-for="Email" type="text" class="form-control" id="email">
+            <input asp-for="Email" type="text" class="form-control" id="email" autocomplete="off">
             <span asp-validation-for="Email" class="text-danger"></span>
-            <button type="button" class="btn" onclick="FinishEmail()">^ Insert @@jagmail.southalabama.edu</button>
-
+            <button type="button" class="btn" onclick="FinishEmail()">Insert @@jagmail.southalabama.edu</button>
         </div>
 
         <div class="form-group">
             <label for="phone" class="h4">Phone:</label>
-            <input asp-for="Phone" type="text" class="form-control" id="phone">
+            <input asp-for="Phone" type="text" class="form-control" id="phone" autocomplete="off">
             <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
 
