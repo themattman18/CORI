@@ -90,5 +90,34 @@ namespace CORI.Controllers
 
             return View(contacts);
         }
+
+        /// <summary>
+        /// Gets all the contacts
+        /// </summary>
+        /// <param name="contactData"></param>
+        /// <returns></returns>
+        public IActionResult GetContactDataView(int contactData)
+        {
+            List<CORI.IO.Models.Contact> contacts;
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+            optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            
+
+            using (var context = new ApplicationDbContext(optionsBuilder.Options))
+            {
+                IO.Survey.Survey surveyIO = new IO.Survey.Survey(context);
+
+                if (contactData == 1)
+                {
+                    contacts = surveyIO.GetMyContacts(HttpContext.User.Identity.Name);
+                }
+                else
+                {
+                    contacts = surveyIO.GetAllContacts();
+                }
+            }
+
+            return PartialView("ContactData", contacts);
+        }
     }
 }

@@ -1,32 +1,36 @@
 ﻿@model List<CORI.IO.Models.Contact>
+
 @{
     ViewData["Title"] = "MyContacts";
 }
 
 <h2>MyContacts</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Subscribed</th>
-            <th scope="col">Contact Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var currentContact in Model)
-        {
-        <tr>
-            <td>@currentContact.FirstName</td>
-            <td>@currentContact.LastName</td>
-            <td>@currentContact.Email</td>
-            <td>@currentContact.Phone</td>
-            <td>@currentContact.IsSubscribed</td>
-            <td>@currentContact.ContactDate</td>
-        </tr>
-        }
-    </tbody>
-</table>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        $("#contactsSelect").change(function () {
+
+            $.ajax({
+                url: "@Url.Action("GetContactDataView", "Survey")",
+                type: "GET",
+                data: { contactData: $("#contactsSelect").val() }
+            }).done(function (partialViewResult) {
+                $("#partialContact").html(partialViewResult);
+            });
+        });
+    });
+
+</script>
+
+<div class="form-group">
+    <select class="form-control" id="contactsSelect" style="width:250px;">
+        <option value="1">My Contacts</option>
+        <option value="2">All Contacts</option>
+    </select>
+</div>
+
+<div id="partialContact">
+    @await Html.PartialAsync("ContactData", Model)
+</div>

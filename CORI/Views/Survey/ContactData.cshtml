@@ -1,0 +1,27 @@
+﻿@model List<CORI.IO.Models.Contact>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Subscribed</th>
+            <th scope="col">Contact Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var currentContact in Model)
+        {
+            <tr>
+                <td>@currentContact.FirstName</td>
+                <td>@currentContact.LastName</td>
+                <td>@currentContact.Email</td>
+                <td>@currentContact.Phone</td>
+                <td>@currentContact.IsSubscribed</td>
+                <td>@currentContact.ContactDate</td>
+            </tr>
+        }
+    </tbody>
+</table>

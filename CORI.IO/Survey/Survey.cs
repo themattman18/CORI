@@ -29,7 +29,7 @@ namespace CORI.IO.Survey
             var contact = (from x in appCxt.Contacts
                            where x.Email == survey.Email
                            select x).FirstOrDefault();
-        
+
 
             if (contact == null)
             {
@@ -115,5 +115,18 @@ namespace CORI.IO.Survey
 
             return myContacts;
         }
+
+        /// <summary>
+        /// Gets a list of all the contacts
+        /// </summary>
+        /// <returns></returns>
+        public List<IO.Models.Contact> GetAllContacts()
+        {
+            List<IO.Models.Contact> myContacts = (from x in appCxt.Contacts
+                                                  select x).ToList();
+
+            return myContacts;
+        }
+
     }
 }
