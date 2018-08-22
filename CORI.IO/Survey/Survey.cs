@@ -22,7 +22,7 @@ namespace CORI.IO.Survey
         /// Saves a survey
         /// </summary>
         /// <param name="survey"></param>
-        public void SubmitSurvey(Models.SurveyResult survey)
+        public IO.Models.Contact SubmitSurvey(Models.SurveyResult survey)
         {
 
             // Create the contact if it doesn't exist
@@ -93,6 +93,8 @@ namespace CORI.IO.Survey
 
             // Insert the survey
             appCxt.SaveChanges();
+
+            return contact;
         }
 
         /// <summary>

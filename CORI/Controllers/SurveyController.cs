@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CORI.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,10 +16,13 @@ namespace CORI.Controllers
     public class SurveyController : Controller
     {
         public IConfiguration Configuration { get; }
+        private IHostingEnvironment _hostingEnvironment;
 
-        public SurveyController(IConfiguration config)
+
+        public SurveyController(IConfiguration config, IHostingEnvironment environment)
         {
             Configuration = config;
+            _hostingEnvironment = environment;
         }
 
         public IActionResult Survey()
@@ -30,6 +35,11 @@ namespace CORI.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Submit the survey the student filled out
+        /// </summary>
+        /// <param name="survey"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult SubmitSurvey(CORI.Models.SurveyViewModels.SurveyResult survey)
         {
@@ -37,6 +47,11 @@ namespace CORI.Controllers
             {
                 if (ModelState.IsValid)
                 {
+
+                    var path = Path.Combine(_hostingEnvironment.WebRootPath, "emailTemplates\\basic.html");
+                    string apiKey = Configuration["Authentication-Email-ApiKey"];
+                    string fromEmail = Configuration["Settings-FromEmail"];
+                    string fromName = Configuration["Settings-FromName"];
                     CORI.IO.Survey.Models.SurveyResult result = new IO.Survey.Models.SurveyResult()
                     {
                         ContactedBy = HttpContext.User.Identity.Name,
@@ -55,7 +70,17 @@ namespace CORI.Controllers
                     using (var context = new ApplicationDbContext(optionsBuilder.Options))
                     {
                         IO.Survey.Survey surveyIO = new IO.Survey.Survey(context);
-                        surveyIO.SubmitSurvey(result);
+                        IO.Email.Email emailIO = new IO.Email.Email(context, apiKey, fromEmail, fromName);
+                        var newContact = surveyIO.SubmitSurvey(result);
+
+                        try
+                        {
+                            var mailResult = emailIO.SendConfirmationEmail(newContact, path);
+                        }
+                        catch (Exception)
+                        {
+                            // don't error out just because we couldn't send an email
+                        }
                     }
 
                     return View("~/Views/Survey/ThankYou.cshtml");
