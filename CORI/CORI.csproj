@@ -40,4 +40,9 @@
     <None Include="wwwroot\emailTemplates\basic.html" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\font-awesome\css\" />
+    <Folder Include="wwwroot\lib\font-awesome\fonts\" />
+  </ItemGroup>
+
 </Project>
