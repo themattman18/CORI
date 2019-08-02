@@ -42,7 +42,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\font-awesome\css\" />
-    <Folder Include="wwwroot\lib\font-awesome\fonts\" />
+    <Folder Include="wwwroot\lib\font-awesome\webfonts\" />
   </ItemGroup>
 
 </Project>

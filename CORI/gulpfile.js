@@ -10,7 +10,7 @@ const paths = {
 
 gulp.task('copy:font-awesome:css', () => {
     const cssToCopy = [
-        `${paths.nodeModules}font-awesome/css/font-awesome.min.css`
+        `${paths.nodeModules}@fortawesome/fontawesome-free/css/fontawesome.min.css`
     ];
 
     return gulp.src(cssToCopy)
@@ -19,11 +19,11 @@ gulp.task('copy:font-awesome:css', () => {
 
 gulp.task('copy:font-awesome:fonts', () => {
     const cssToCopy = [
-        `${paths.nodeModules}font-awesome/fonts/*`
+        `${paths.nodeModules}@fortawesome/fontawesome-free/webfonts/*`
     ];
 
     return gulp.src(cssToCopy)
-        .pipe(gulp.dest(`${paths.frameworksDest}fonts`));
+        .pipe(gulp.dest(`${paths.frameworksDest}webfonts`));
 });
 
 
