@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CORI.Services;
 using CORI.IO.Models;
+using CORI.IO.MailChimp;
 
 namespace CORI
 {
@@ -38,7 +39,7 @@ namespace CORI
                 options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
@@ -56,6 +57,10 @@ namespace CORI
                 facebookOptions.AppId = Configuration["Authentication-Facebook-AppId"];
                 facebookOptions.AppSecret = Configuration["Authentication-Facebook-AppSecret"];
             });
+
+            services.Configure<CORI.IO.MailChimp.Models.EmailSyncSettings>(Configuration.GetSection("EmailSync"));
+            services.AddTransient<IEmailSync, MailChimpEmailSync>();
+
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();

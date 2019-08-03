@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CORI.Data;
+using CORI.IO.MailChimp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,14 @@ namespace CORI.Controllers
     {
         public IConfiguration Configuration { get; }
         private IHostingEnvironment _hostingEnvironment;
+        private IEmailSync _mailChimpSync;
 
 
-        public SurveyController(IConfiguration config, IHostingEnvironment environment)
+        public SurveyController(IConfiguration config, IHostingEnvironment environment, IEmailSync mainChimpSync)
         {
             Configuration = config;
             _hostingEnvironment = environment;
+            _mailChimpSync = mainChimpSync ?? throw new ArgumentException();
         }
 
         public IActionResult Survey()
@@ -48,7 +51,8 @@ namespace CORI.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    var path = Path.Combine(_hostingEnvironment.WebRootPath, "emailTemplates\\basic.html");
+                    //var path = Path.Combine(_hostingEnvironment.WebRootPath, "emailTemplates\\basic.html");
+
                     string apiKey = Configuration["Authentication-Email-ApiKey"];
                     string fromEmail = Configuration["Settings-FromEmail"];
                     string fromName = Configuration["Settings-FromName"];
@@ -73,14 +77,16 @@ namespace CORI.Controllers
                         IO.Email.Email emailIO = new IO.Email.Email(context, apiKey, fromEmail, fromName);
                         var newContact = surveyIO.SubmitSurvey(result);
 
-                        try
-                        {
-                            var mailResult = emailIO.SendConfirmationEmail(newContact, path);
-                        }
-                        catch (Exception)
-                        {
-                            // don't error out just because we couldn't send an email
-                        }
+                        var response = _mailChimpSync.SyncEmail(result);
+
+                        //try
+                        //{
+                        //    var mailResult = emailIO.SendConfirmationEmail(newContact, path);
+                        //}
+                        //catch (Exception)
+                        //{
+                        //    // don't error out just because we couldn't send an email
+                        //}
                     }
 
                     return View("~/Views/Survey/ThankYou.cshtml");
@@ -93,7 +99,7 @@ namespace CORI.Controllers
 
                 throw;
             }
-            
+
         }
 
         /// <summary>
@@ -126,7 +132,7 @@ namespace CORI.Controllers
             List<CORI.IO.Models.Contact> contacts;
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            
+
 
             using (var context = new ApplicationDbContext(optionsBuilder.Options))
             {

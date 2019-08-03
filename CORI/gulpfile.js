@@ -8,23 +8,14 @@ const paths = {
 };
 
 
-gulp.task('copy:font-awesome:css', () => {
+gulp.task('copy:font-awesome', () => {
     const cssToCopy = [
-        `${paths.nodeModules}@fortawesome/fontawesome-free/css/fontawesome.min.css`
+        `${paths.nodeModules}@fortawesome/fontawesome-free/**/*`
     ];
 
     return gulp.src(cssToCopy)
-        .pipe(gulp.dest(`${paths.frameworksDest}css`));
-});
-
-gulp.task('copy:font-awesome:fonts', () => {
-    const cssToCopy = [
-        `${paths.nodeModules}@fortawesome/fontawesome-free/webfonts/*`
-    ];
-
-    return gulp.src(cssToCopy)
-        .pipe(gulp.dest(`${paths.frameworksDest}webfonts`));
+        .pipe(gulp.dest(`${paths.frameworksDest}`));
 });
 
 
-gulp.task('default', gulp.series('copy:font-awesome:css', 'copy:font-awesome:fonts'));
+gulp.task('default', gulp.series('copy:font-awesome'));
