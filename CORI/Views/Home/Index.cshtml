@@ -12,11 +12,12 @@
 <div class="row homePage" style="margin-top:10px;">
 
 
-    <div class="col-md-2" ><i class="fas fa-robot fa-10x"></i><i class="fa far fa-comment"></i></div>
+    <div class="col-md-2" ><i class="fas fa-robot fa-10x"></i>@*<i class="fa far fa-comment"></i>*@</div>
     @*<img class="col-md-2" src="~/images/cori-3.png" />*@
     <div class="col-md-8">
-        <a asp-action="Survey" asp-controller="Survey" target="_blank"><input type="button" class="btn btn-default" style="display:block;" value="30 Second Survey"></a>
-        <a asp-action="MyContacts" asp-controller="Survey"><input type="button" class="btn btn-default" style="display:block;" value="My Contacts"></a>
+        <a asp-action="Survey" asp-controller="Survey" target="_blank"><span class="btn btn-default"><i class="fas fa-lg fa-question-circle"></i> 30 Second Survey</span></a>
+        <a asp-action="MyContacts" asp-controller="Survey"><span class="btn btn-default"><i class="fas fa-lg fa-address-book"></i> My Contacts</span></a>
+        <a asp-action="Index" asp-controller="Texting" ><span class="btn btn-default"><i class="fas fa-lg fa-sms"></i> Texting</span></a>
     </div>
 
 

@@ -61,6 +61,9 @@ namespace CORI
             services.Configure<CORI.IO.MailChimp.Models.EmailSyncSettings>(Configuration.GetSection("EmailSync"));
             services.AddTransient<IEmailSync, MailChimpEmailSync>();
 
+            services.Configure<CORI.IO.Texting.Models.TextingSettings>(Configuration.GetSection("Twilio"));
+            services.AddTransient<IO.Texting.ITexting, IO.Texting.Texting>();
+
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();

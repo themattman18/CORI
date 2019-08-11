@@ -1,0 +1,22 @@
+﻿@model CORI.IO.Texting.Models.TextingViewModel
+@{
+    ViewData["Title"] = "Texting";
+}
+
+@*<script src="~/js/Texting/Texting.js"></script>*@
+<h2>Texting</h2>
+
+
+@*<div id="textingControls" data-texting-url="@Url.Action("SendText","Texting")">*@
+
+<form asp-action="SendText" method="post">
+    <input asp-for="PhoneNumber" type="text" id="phoneNumber" placeholder="Phone number" class="form-control" />
+    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+    <input asp-for="Message" type="text" id="message" placeholder="Message" class="form-control" />
+    <span asp-validation-for="Message" class="text-danger"></span>
+
+    <input type="submit" value="Submit" class="btn" onclick="CORI.Texting.SendText()" />
+</form>
+
+@*</div>*@
