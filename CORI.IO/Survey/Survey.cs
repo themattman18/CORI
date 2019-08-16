@@ -45,7 +45,7 @@ namespace CORI.IO.Survey
                     LastName = survey.LastName,
                     IsSubscribed = survey.IsSubscribed,
                     Phone = survey.Phone,
-                    ContactMethodId = surveyMethod
+                    ContactMethod = surveyMethod
                 });
 
                 appCxt.SaveChanges();
@@ -71,23 +71,23 @@ namespace CORI.IO.Survey
             // Save the answers
             appCxt.SurveyResults.Add(new IO.Models.SurveyResult()
             {
-                ContactId = contact,
+                Contact = contact,
                 Answer = survey.MostImportantExperience,
-                QuestionId = questions.Where(x => x.QuestionId == 1).First()
+                Question = questions.Where(x => x.QuestionId == 1).First()
             });
 
             appCxt.SurveyResults.Add(new IO.Models.SurveyResult()
             {
-                ContactId = contact,
+                Contact = contact,
                 Answer = survey.SpiritualArea,
-                QuestionId = questions.Where(x => x.QuestionId == 2).First()
+                Question = questions.Where(x => x.QuestionId == 2).First()
             });
 
             appCxt.SurveyResults.Add(new IO.Models.SurveyResult()
             {
-                ContactId = contact,
+                Contact = contact,
                 Answer = survey.IsSubscribed.ToString(),
-                QuestionId = questions.Where(x => x.QuestionId == 3).First()
+                Question = questions.Where(x => x.QuestionId == 3).First()
             });
 
 
