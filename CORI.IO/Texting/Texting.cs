@@ -65,5 +65,22 @@ namespace CORI.IO.Texting
 
         }
 
+        /// <summary>
+        /// Responds to a text message from a student
+        /// </summary>
+        /// <param name="from"></param>
+        /// <param name="message"></param>
+        public void RespondToText(string from, string message)
+        {
+            TwilioClient.Init(settings.AccountSid, settings.AuthToken);
+            
+            var messageOptions = new CreateMessageOptions(
+                new PhoneNumber(settings.RepPhone)
+            );
+            messageOptions.From = new PhoneNumber(settings.FromPhoneNumber);
+            messageOptions.Body = $"New message from {from}: {message}";
+
+            var messageResource = MessageResource.Create(messageOptions);
+        }
     }
 }

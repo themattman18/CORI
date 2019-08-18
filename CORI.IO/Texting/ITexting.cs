@@ -8,5 +8,6 @@ namespace CORI.IO.Texting
     {
         void SendText(List<IO.Texting.Models.StudentPhoneInfo> studentsToText, string message);
         List<Models.StudentPhoneInfo> GetPhoneNumbers();
+        void RespondToText(string from, string message);
     }
 }
