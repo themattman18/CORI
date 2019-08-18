@@ -1,22 +1,54 @@
-﻿@model CORI.IO.Texting.Models.TextingViewModel
+﻿@model List<CORI.IO.Texting.Models.StudentPhoneInfo>
 @{
     ViewData["Title"] = "Texting";
 }
 
-@*<script src="~/js/Texting/Texting.js"></script>*@
+<script src="~/js/Texting/Texting.js"></script>
 <h2>Texting</h2>
 
+<div id="textingControls" data-texting-url="@Url.Action("SendText","Texting")">
 
-@*<div id="textingControls" data-texting-url="@Url.Action("SendText","Texting")">*@
+    <select id="PhoneNumbers" multiple="multiple" data-placeholder="Select students...">
+        @*@foreach (var item in Model)
+        {
+            <option>@item.DisplayName</option>
+        }*@
+    </select>
 
-<form asp-action="SendText" method="post">
-    <input asp-for="PhoneNumber" type="text" id="phoneNumber" placeholder="Phone number" class="form-control" />
-    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    <script>
 
-    <input asp-for="Message" type="text" id="message" placeholder="Message" class="form-control" />
-    <span asp-validation-for="Message" class="text-danger"></span>
+        $(document).ready(function () {
 
-    <input type="submit" value="Submit" class="btn" onclick="CORI.Texting.SendText()" />
-</form>
+            var studentsInfo = @Json.Serialize(Model);
+            var dataSource = new kendo.data.DataSource({
+                data: studentsInfo,
+            });
 
-@*</div>*@
+            var students = $("#PhoneNumbers").kendoMultiSelect({
+                autoClose: false,
+                dataSource: dataSource,
+                placeholder: "Select students...",
+                dataTextField: "displayName",
+                dataValueField: "id",
+            });
+        });
+
+    </script>
+
+    <br />
+    <br />
+    <label for="textMessage">Text Message (Type [Name] where you want the student's name to appear)</label>
+    <textarea id="textMessage" class="form-control"></textarea>
+    <input type="submit" value="Send Text" class="btn" onclick="CORI.Texting.SendText()" />
+</div>
+
+@*<form asp-action="SendText" method="post">
+        <input asp-for="PhoneNumber" type="text" id="phoneNumber" placeholder="Phone number" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
+        <input asp-for="Message" type="text" id="message" placeholder="Message" class="form-control" />
+        <span asp-validation-for="Message" class="text-danger"></span>
+
+        <input type="submit" value="Submit" class="btn" onclick="CORI.Texting.SendText()" />
+    </form>*@
+

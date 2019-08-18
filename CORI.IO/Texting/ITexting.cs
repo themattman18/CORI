@@ -6,6 +6,7 @@ namespace CORI.IO.Texting
 {
     public interface ITexting
     {
-        void SendText(Models.TextingViewModel textingMessage);
+        void SendText(List<IO.Texting.Models.StudentPhoneInfo> studentsToText, string message);
+        List<Models.StudentPhoneInfo> GetPhoneNumbers();
     }
 }

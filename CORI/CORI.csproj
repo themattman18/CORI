@@ -51,6 +51,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\lib\font-awesome\css\" />
     <Folder Include="wwwroot\lib\font-awesome\webfonts\" />
+    <Folder Include="wwwroot\lib\kendo\" />
   </ItemGroup>
 
   <ItemGroup>

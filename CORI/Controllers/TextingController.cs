@@ -19,30 +19,31 @@ namespace CORI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(TwilioTexting.GetPhoneNumbers());
         }
 
         [HttpPost]
-        public IActionResult SendText(IO.Texting.Models.TextingViewModel textingMessage)
+        public IActionResult SendText(List<IO.Texting.Models.StudentPhoneInfo> studentsToText, string message)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    TwilioTexting.SendText(textingMessage);
+                    TwilioTexting.SendText(studentsToText, message);
                     return View("~/Views/Texting/Index.cshtml");
 
                 }
                 catch (Exception ex)
                 {
                     ModelState.AddModelError("PhoneNumber", ex.Message);
-                    return View("~/Views/Texting/Index.cshtml", textingMessage);
+                    return View("~/Views/Texting/Index.cshtml", studentsToText);
                 }
             }
             else
             {
-                return View("~/Views/Texting/Index.cshtml", textingMessage);
+                return View("~/Views/Texting/Index.cshtml", studentsToText);
             }
         }
+
     }
 }
