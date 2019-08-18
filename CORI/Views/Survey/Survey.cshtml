@@ -73,26 +73,6 @@
         -ms-transform: rotate(45deg);
         transform: rotate(45deg);
     }
-
-    #overlay {
-        position: fixed; /* Sit on top of the page content */
-        display: none; /* Hidden by default */
-        width: 100%; /* Full width (cover the whole page) */
-        height: 100%; /* Full height (cover the whole page) */
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-        z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-    }
-
-    #spinner{
-        position:absolute;
-        left:50%;
-        top:45%;
-        color:#a6ff18;
-    }
 </style>
 
 <script type="text/javascript">
@@ -128,17 +108,9 @@
         $("#email").val($("#email").val() + "@@jagmail.southalabama.edu");
     }
 
-    function ShowLoading(show) {
-        if (show) {
-            document.getElementById("overlay").style.display = "block";
-        }
-        else
-            document.getElementById("overlay").style.display = "none";
-    }
-
 </script>
 
-<div id="overlay"><i class="fas fa-circle-notch fa-spin fa-5x" id="spinner"></i></div>
+<partial name="_LoadingSpinner" />
 
 <div style="display:flex; flex-direction:row; align-items:center; justify-content:space-around;">
     <img src="~/images/drivenlogo.png" height="80" />
@@ -247,6 +219,6 @@
             <span asp-validation-for="Phone" class="text-danger"></span>
         </div>
 
-        <button class="btn btn-lg btn-primary" onclick="ShowLoading(true)" style="width:100%;">Submit</button>
+        <button class="btn btn-lg btn-primary" onclick="LoadingSpinner.Show(true)" style="width:100%;">Submit</button>
     </div>
 </form>
