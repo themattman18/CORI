@@ -3,11 +3,11 @@
   "name": "asp.net",
   "private": true,
     "dependencies": {
+        "@types/jquery": "3.3.10",
+        "@types/kendo-ui": "2019.1.2",
         "@fortawesome/fontawesome-free": "5.10.0"
     },
     "devDependencies": {
-        "@types/jquery": "3.3.10",
-        "@types/kendo-ui": "2019.1.2",
         "gulp": "^4.0.2"
     }
 }
