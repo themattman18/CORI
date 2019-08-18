@@ -35,7 +35,8 @@ namespace CORI.IO.Texting
             foreach (var item in studentsToText)
             {
                 var messageOptions = new CreateMessageOptions(
-                new PhoneNumber(item.Phone));
+                    new PhoneNumber(item.Phone)
+                );
                 messageOptions.From = new PhoneNumber(settings.FromPhoneNumber);
                 messageOptions.Body = message.Replace("[Name]", item.FirstName);
 
@@ -43,6 +44,10 @@ namespace CORI.IO.Texting
             }
         }
 
+        /// <summary>
+        /// Gets the phonenumbers for all the students
+        /// </summary>
+        /// <returns></returns>
         public List<Models.StudentPhoneInfo> GetPhoneNumbers()
         {
             List<Models.StudentPhoneInfo> allStudents = new List<Models.StudentPhoneInfo>();
