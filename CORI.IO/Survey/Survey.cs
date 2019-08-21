@@ -45,7 +45,7 @@ namespace CORI.IO.Survey
                     LastName = survey.LastName,
                     IsSubscribed = survey.IsSubscribed,
                     Phone = survey.Phone,
-                    ContactMethod = surveyMethod
+                    //ContactMethod = surveyMethod
                 });
 
                 appCxt.SaveChanges();
@@ -60,8 +60,8 @@ namespace CORI.IO.Survey
                 // Tie this contact to the person who contacted them
                 appCxt.UserContacts.Add(new IO.Models.UserContact()
                 {
-                    ApplicationUserId = appUser,
-                    ContactId = contact
+                    ApplicationUser = appUser,
+                    Contact = contact
                 });
             }
 
@@ -109,8 +109,8 @@ namespace CORI.IO.Survey
             if (!string.IsNullOrEmpty(userName))
             {
                 myContacts = (from x in appCxt.Contacts
-                              join y in appCxt.UserContacts on x equals y.ContactId
-                              join z in appCxt.Users on y.ApplicationUserId equals z
+                              join y in appCxt.UserContacts on x equals y.Contact
+                              join z in appCxt.Users on y.ApplicationUser equals z
                               where z.Email == userName
                               select x).ToList();
             }

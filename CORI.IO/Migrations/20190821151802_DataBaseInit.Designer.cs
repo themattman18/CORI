@@ -7,17 +7,17 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CORI.Data.Migrations
+namespace CORI.IO.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180811174725_ContactTables")]
-    partial class ContactTables
+    [Migration("20190821151802_DataBaseInit")]
+    partial class DataBaseInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -84,7 +84,7 @@ namespace CORI.Data.Migrations
 
                     b.Property<DateTime>("ContactDate");
 
-                    b.Property<int?>("ContactMethodId1");
+                    b.Property<int?>("ContactMethodId");
 
                     b.Property<string>("Email");
 
@@ -98,22 +98,122 @@ namespace CORI.Data.Migrations
 
                     b.HasKey("ContactId");
 
-                    b.HasIndex("ContactMethodId1");
+                    b.HasIndex("ContactMethodId");
 
                     b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("CORI.IO.Models.ContactMethod", b =>
                 {
-                    b.Property<int>("ContactMethodId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("ContactMethodId");
 
                     b.Property<string>("Description");
 
                     b.HasKey("ContactMethodId");
 
                     b.ToTable("ContactMethods");
+
+                    b.HasData(
+                        new
+                        {
+                            ContactMethodId = 1,
+                            Description = "30 Second Survey"
+                        },
+                        new
+                        {
+                            ContactMethodId = 2,
+                            Description = "Soul Winning"
+                        },
+                        new
+                        {
+                            ContactMethodId = 3,
+                            Description = "Event"
+                        },
+                        new
+                        {
+                            ContactMethodId = 4,
+                            Description = "Personal Invite"
+                        },
+                        new
+                        {
+                            ContactMethodId = 5,
+                            Description = "Website"
+                        },
+                        new
+                        {
+                            ContactMethodId = 6,
+                            Description = "Misc"
+                        });
+                });
+
+            modelBuilder.Entity("CORI.IO.Models.Question", b =>
+                {
+                    b.Property<int>("QuestionId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.HasKey("QuestionId");
+
+                    b.ToTable("Questions");
+
+                    b.HasData(
+                        new
+                        {
+                            QuestionId = 1,
+                            Description = "Which of these is the most important for you to experience during college?"
+                        },
+                        new
+                        {
+                            QuestionId = 2,
+                            Description = "On a scale from 1-10 how important is the spiritual area of your life?"
+                        },
+                        new
+                        {
+                            QuestionId = 3,
+                            Description = "I am interested in hearing more about Driven Student Ministry"
+                        });
+                });
+
+            modelBuilder.Entity("CORI.IO.Models.SurveyResult", b =>
+                {
+                    b.Property<int>("SurveyResultId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Answer");
+
+                    b.Property<int?>("ContactId");
+
+                    b.Property<int?>("QuestionId");
+
+                    b.HasKey("SurveyResultId");
+
+                    b.HasIndex("ContactId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("SurveyResults");
+                });
+
+            modelBuilder.Entity("CORI.IO.Models.UserContact", b =>
+                {
+                    b.Property<int>("UserContactId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApplicationUserId");
+
+                    b.Property<int?>("ContactId");
+
+                    b.HasKey("UserContactId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.HasIndex("ContactId");
+
+                    b.ToTable("UserContacts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -228,9 +328,31 @@ namespace CORI.Data.Migrations
 
             modelBuilder.Entity("CORI.IO.Models.Contact", b =>
                 {
-                    b.HasOne("CORI.IO.Models.ContactMethod", "ContactMethodId")
+                    b.HasOne("CORI.IO.Models.ContactMethod", "ContactMethod")
                         .WithMany()
-                        .HasForeignKey("ContactMethodId1");
+                        .HasForeignKey("ContactMethodId");
+                });
+
+            modelBuilder.Entity("CORI.IO.Models.SurveyResult", b =>
+                {
+                    b.HasOne("CORI.IO.Models.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
+
+                    b.HasOne("CORI.IO.Models.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId");
+                });
+
+            modelBuilder.Entity("CORI.IO.Models.UserContact", b =>
+                {
+                    b.HasOne("CORI.IO.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+
+                    b.HasOne("CORI.IO.Models.Contact", "Contact")
+                        .WithMany()
+                        .HasForeignKey("ContactId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

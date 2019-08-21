@@ -96,16 +96,16 @@ namespace CORI
             app.UseAuthentication();
 
             // See the data on application start up
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                context.Database.Migrate();
-                //context.EnsureSeedData();
+            //using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+            //    context.Database.Migrate();
+            //    //context.EnsureSeedData();
 
-                // I put the seeding here because of this: https://blogs.msdn.microsoft.com/dotnet/2016/09/29/implementing-seeding-custom-conventions-and-interceptors-in-ef-core-1-0/
-                CORI.IO.Data.DbInitializer.Initialize(context);
+            //    // I put the seeding here because of this: https://blogs.msdn.microsoft.com/dotnet/2016/09/29/implementing-seeding-custom-conventions-and-interceptors-in-ef-core-1-0/
+            //    CORI.IO.Data.ApplicationContextSeedData.Initialize(context);
 
-            }
+            //}
 
             app.UseMvc(routes =>
             {
